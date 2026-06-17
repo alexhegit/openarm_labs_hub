@@ -1,0 +1,15 @@
+# 中枢仓库只放文档，不放产物/代码
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+
+# 大产物不入库（在实验记录里登记路径即可）
+*.mp4
+*.pth
+*.pt
+*.ckpt
+*.usd
+*.usdz
+output/

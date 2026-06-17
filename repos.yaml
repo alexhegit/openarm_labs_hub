@@ -1,0 +1,62 @@
+# vcstool manifest — 还原整套 OpenArm Labs 工作区
+#   cd /DATA/AMD-Sim/OpenArm_Labs && vcs import . < openarm_labs_hub/repos.yaml
+# version 字段填分支名（跟随更新）；如需严格复现，把 version 改成下方注释里的 commit。
+# 快照时间：2026-06-17
+
+repositories:
+  openarm_labs_hub:
+    type: git
+    url: https://github.com/alexhegit/openarm_labs_hub.git   # 本仓库（fork: alexhegit）
+    version: main
+
+  # --- 自有 fork（主要工作发生地）---
+  openarm_mp_labs:
+    type: git
+    url: https://github.com/alexhegit/openarm_mp_labs.git
+    version: venv            # commit 95fd74303202743975f9b4dfcf1d93b8d37081f8
+  GraspGenX:
+    type: git
+    url: https://github.com/alexhegit/GraspGenX.git
+    version: visual-mesh-demo  # commit 6f2e1b960a337ac0ad562c5e877cb8e6a0720c07
+
+  # --- 上游 enactic（只读参考）---
+  openarm:
+    type: git
+    url: https://github.com/enactic/openarm.git
+    version: main            # commit 200d5bd96719d8c2fc03366b454897c5acb590ad
+  openarm_description:
+    type: git
+    url: https://github.com/enactic/openarm_description.git
+    version: main            # commit 2a29691e2ff9f48f735cd6d765368c4d989087da
+  openarm_control:
+    type: git
+    url: https://github.com/enactic/openarm_control.git
+    version: main            # commit 419a4ca3c5a50dd974d2e7bb0d323bc595803aa2
+  openarm_mujoco:
+    type: git
+    url: https://github.com/enactic/openarm_mujoco.git
+    version: master          # commit 5c6e1b4c71cbe27c6a4b58c7f198f080449e1b9c
+  openarm_simulation:
+    type: git
+    url: https://github.com/enactic/openarm_simulation.git
+    version: main            # commit c3f4eeb9283c869ac34fe923e174e59fc93e6707
+  openarm_isaac_lab:
+    type: git
+    url: https://github.com/enactic/openarm_isaac_lab.git
+    version: main            # commit bad82e23716e6941c2de78ccb978f57c78b37734
+  openarm_maniskill_simulation:
+    type: git
+    url: https://github.com/enactic/openarm_maniskill_simulation.git
+    version: rocm            # commit 3d3615aadabff11ce61ddc2e1608c1447cb3a59d
+  openarm_dataset:
+    type: git
+    url: https://github.com/enactic/openarm_dataset.git
+    version: main            # commit ea0f8e8ac3653a407567d9a2fcd206753e0c1be2
+  openarm_teleop:
+    type: git
+    url: https://github.com/enactic/openarm_teleop.git
+    version: main            # commit b8327e284de0f2edec322e6a1a4a064fd01874e5
+  openarm_ros2:
+    type: git
+    url: https://github.com/enactic/openarm_ros2.git
+    version: main            # commit 01b9f3815222b490a593f01379d8e2106c8da6a0
