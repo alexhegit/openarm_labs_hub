@@ -26,7 +26,16 @@ docker run --rm --device=/dev/kfd --device=/dev/dri \
 > `--group-add 110` 是 render 组的数字 GID（组名解析在某些镜像里失败）。
 
 ## 派生镜像 / 容器
-- `graspgen-dev`（常驻容器）：在 unified 基础上 `pip install -e GraspGenX`。pip 依赖在容器可写层，删容器即丢；需复用则 `docker commit graspgen-dev openarm-rocm:graspgen`。
+- `openarm-rocm:graspgen`（32.3GB）：已 `docker commit` 固化，= unified + GraspGenX 全套依赖。容器删/主机重启后直接复用，无需重装。
+- `graspgen-dev`（常驻容器）：源自上者。checkpoint 真权重在挂载盘 `/workspace/GraspGenX/ext/`，不在镜像里。
+
+复用启动：
+```bash
+docker run -d --name graspgen-dev --device=/dev/kfd --device=/dev/dri \
+  --group-add video --group-add 110 --security-opt seccomp=unconfined \
+  -v /DATA/AMD-Sim/OpenArm_Labs:/workspace -w /workspace/GraspGenX \
+  openarm-rocm:graspgen sleep infinity
+```
 
 ## 验证命令（真实 GPU 计算，不只看 is_available）
 ```bash
