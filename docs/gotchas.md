@@ -67,6 +67,18 @@
 
 ---
 
+## 集成 / 坐标系
+
+### GraspGenX 抓取帧 ↔ MuJoCo EE 帧方向相反（2026-06-22）
+- GraspGenX `isaac_grasp` 的 `position`=夹爪基座、`+z`=接近方向（指尖在 +z 0.068）。
+- 我们 MuJoCo 侧 `TCP_OFFSET_LOCAL=[0.005,0,-0.150]`，指尖≈ site **−z**。两者相反，映射时要按各自约定换算，别直接套用。
+- 实用结论：每个 grasp 的接近线都过物体质心 → 指尖目标可取 sim 实测物体中心，接近轴/朝向取自 grasp。
+
+### topdown 模式别"强制竖直再重对齐"（2026-06-22）
+- **现象**：GraspGenX 驱动闭环 lift=0（抓空），但 IK 误差只有 1mm。
+- **根因**：已验证的俯抓直接用 home EE 朝向（已校准好曲面指尖夹取）。我额外「强制 approach=[0,0,-1] 再把 home 朝向对齐过去」，反而相对 home 引入几度倾斜，指尖偏离方块。
+- **解法**：`topdown` 模式直接复用 home 朝向、竖直退让；只有 `full/best` 模式才用 grasp 的真实朝向做对齐。修复后 topdown 抬升 112mm、full（侧抓）115mm。
+
 ## Git / 仓库管理
 
 ### output 产物不要入库（2026-06-16）

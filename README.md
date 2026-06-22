@@ -70,5 +70,6 @@ openarm_labs_hub/
 - ✅ ROCm 统一镜像 `openarm-rocm:unified`（双 venv：torch / jax+mujoco），三栈 GPU 验证通过
 - ✅ openarm_mp_labs pick-and-place 容器内跑通（osmesa 软渲染录像）
 - ✅ GraspGenX + openarm 夹爪 mesh 推理跑通（50 个 6-DOF 抓取，isaac_grasp yml）
-- ⏳ 阶段 7：PyRoki IK 进 venv-planner
-- ⏳ 阶段 8：GraspGenX 位姿 → openarm_mp_labs 轨迹 → MuJoCo 回放（端到端闭环）
+- ✅ 阶段 8：GraspGenX 位姿 → openarm_mp_labs 轨迹 → MuJoCo 回放**端到端闭环跑通**（topdown 112mm / full 侧抓 115mm）
+- ⏳ 阶段 7（可选）：PyRoki IK 进 venv-planner
+- ⏳ 后续：非立方体物体、side-grasp 接触力附着、夹爪缓存提分
