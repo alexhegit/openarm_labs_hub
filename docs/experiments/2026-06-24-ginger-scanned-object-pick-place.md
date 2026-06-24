@@ -30,19 +30,19 @@ python scripts/demo_object_mesh.py \
   --gripper_name openarm --grasp_threshold -1.0 --return_topk --topk_num_grasps 50 \
   --no-visualization --output_file /workspace/output/openarm_ginger_grasps.yml
 
-# 3. 闭环仿真（planner venv），--object 指定扫描物体 MJCF
+# 3. 闭环仿真（planner venv）。ginger 资产已 vendored 进 openarm_mp_labs，
+#    用内置短名即可自包含运行（自动带默认 grasp 文件），无需外部 Scan2Sim 路径
 cd /workspace/openarm_mp_labs
 /opt/venv-planner/bin/python -m openarm_mp_labs.demo_pick_place \
-  --object /workspace/Scan2Sim/mjcf/ginger/ginger_lite.xml \
-  --grasp-file /workspace/output/openarm_ginger_grasps.yml --grasp-mode full \
-  --simulate-only
+  --object ginger --grasp-mode full --simulate-only
 
-# 4. 录像（用抽取后的轻量网格，render-every 12）
+# 4. 录像（仓库内 ginger 视觉网格已是 ~14k 面轻量版，render-every 12）
 MUJOCO_GL=osmesa /opt/venv-planner/bin/python -m openarm_mp_labs.demo_pick_place \
-  --object /workspace/Scan2Sim/mjcf/ginger/ginger_lite.xml \
-  --grasp-file /workspace/output/openarm_ginger_grasps.yml --grasp-mode full \
-  --render-every 12 --record /workspace/output/pick_place_ginger_full.mp4
+  --object ginger --grasp-mode full \
+  --render-every 12 --record output/pick_place_ginger_full.mp4
 ```
+
+> 资产位置（vendored，自包含）：`openarm_mp_labs/assets/ginger/`（MJCF + 轻量 visual.obj + collision.stl）、`openarm_mp_labs/assets/grasps/ginger_grasps.yml`。来源标注于该 MJCF 与 repo README（Scan2Sim）。原始 24MB 高模扫描留在 Scan2Sim，不入 openarm_mp_labs。
 
 ## 结果
 - ginger 尺寸 ~69×48×65mm（最窄 48mm，逼近夹爪极限），mass 0.0575kg
