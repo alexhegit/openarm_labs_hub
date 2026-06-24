@@ -79,6 +79,25 @@
 - **根因**：已验证的俯抓直接用 home EE 朝向（已校准好曲面指尖夹取）。我额外「强制 approach=[0,0,-1] 再把 home 朝向对齐过去」，反而相对 home 引入几度倾斜，指尖偏离方块。
 - **解法**：`topdown` 模式直接复用 home 朝向、竖直退让；只有 `full/best` 模式才用 grasp 的真实朝向做对齐。修复后 topdown 抬升 112mm、full（侧抓）115mm。
 
+### 非对称物体：接触点 ≠ 质心（2026-06-24）
+- **现象**：方块用"指尖目标=物体质心"可行；换成扫描 ginger（不规则）后，质心不是抓取实际接触处。
+- **解法**：把抓取的世界接触点改成 `base + GRASP_DEPTH_M·approach`（`GRASP_DEPTH_M≈0.12`，从方块标定，object-agnostic）。对方块仍≈质心，向后兼容。
+
+### 运动学吸附别在接近阶段触发（2026-06-24）
+- **现象**：夹爪还没接触物体,物体就沿接近方向跟着滑动（大物体更明显）。
+- **根因**：`ATTACH_PHASES` 含 `descend_grasp`，且 `ATTACH_DISTANCE_M=0.08`（8cm）；pinch 点一进 8cm 就把物体粘住,之后随夹爪平移。
+- **解法**：`ATTACH_PHASES` 去掉 `descend_grasp`，只在 `close_gripper`（真正闭合）阶段吸附。抬升不变。
+
+## 环境 / 资产转换
+
+### Scan2Sim 导出贴图依赖 ImageMagick（2026-06-24）
+- **现象**：`scan2sim convert` 在导出阶段报 `[Errno 2] No such file or directory: 'convert'`（mesh 处理已成功）。
+- **解法**：容器内 `apt-get install -y imagemagick`。抓取/物理本身不需要贴图。
+
+### 高模视觉网格在 osmesa 下录像极慢（2026-06-24）
+- **现象**：ginger 全分辨率视觉网格 148k 面，osmesa 软渲染录像 34 分钟未完。
+- **解法**：`trimesh.simplify_quadric_decimation`（装 `fast-simplification`）抽取到 ~14k 面，做 `*_lite.xml` 专供录像；~4m50s 完成，几何/抓取结果不变。仿真本身用全分辨率不受影响。
+
 ## Git / 仓库管理
 
 ### output 产物不要入库（2026-06-16）
