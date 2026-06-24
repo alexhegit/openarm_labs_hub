@@ -2,7 +2,7 @@
 
 - 日期：2026-06-17
 - 领域：抓取生成 / 环境
-- 相关仓库与分支：`GraspGenX@visual-mesh-demo`（6f2e1b9）、`openarm_mp_labs@venv`（95fd743）
+- 相关仓库与分支：`GraspGenX@rocm`（6f2e1b9，原 visual-mesh-demo 已并入 rocm）、`openarm_mp_labs@venv`（95fd743）
 - 状态：成功
 
 ## 目标

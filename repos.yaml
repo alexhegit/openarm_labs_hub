@@ -17,7 +17,7 @@ repositories:
   GraspGenX:
     type: git
     url: https://github.com/alexhegit/GraspGenX.git
-    version: visual-mesh-demo  # commit 6f2e1b960a337ac0ad562c5e877cb8e6a0720c07
+    version: rocm  # commit 6f2e1b960a337ac0ad562c5e877cb8e6a0720c07 (rocm = main+openarm+visual-mesh-demo 并集，引用基准分支)
 
   # --- 上游 enactic（只读参考）---
   openarm:

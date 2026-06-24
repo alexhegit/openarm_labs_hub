@@ -2,7 +2,7 @@
 
 - 日期：2026-06-22
 - 领域：抓取生成 / 运动规划 / 仿真
-- 相关仓库与分支：`openarm_mp_labs@venv`（17d78e8）、`GraspGenX@visual-mesh-demo`
+- 相关仓库与分支：`openarm_mp_labs@venv`（17d78e8）、`GraspGenX@rocm`（6f2e1b9，原 visual-mesh-demo 已并入 rocm）
 - 状态：成功
 
 ## 目标
