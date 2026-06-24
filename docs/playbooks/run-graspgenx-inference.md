@@ -20,7 +20,19 @@ docker exec graspgen-dev bash -lc '
 
 ## 输出
 `output/<名字>_grasps.yml`（isaac_grasp 格式）：每个 grasp 含 `confidence` + `position` + `orientation`(quaternion w/xyz)。
-后续阶段 8 由 `openarm_mp_labs` 读取 top-1 位姿转成轨迹目标。
+后续由 `openarm_mp_labs` 读取、选一个抓取转成轨迹目标。
+
+## 接到 openarm_mp_labs 跑 demo（完整闭环）
+GraspGenX 与 openarm_mp_labs 通过这个 YAML 文件解耦（ADR 0005）。生成后这样引用：
+```bash
+cd openarm_mp_labs
+uv run openarm-mp-demo \
+  --object /path/to/<obj>.xml --grasp-file output/<obj>_grasps.yml \
+  --grasp-mode full --record output/<obj>_pick_place.mp4
+```
+**权威端到端流程（新物体 → demo → 输出）见**
+`openarm_mp_labs/docs/new_object_pick_place.md`（含 mesh 准备、帧约定、内置示例 ginger、常见坑）。
+换物体的位置/朝向无需重跑本推理；只有换不同形状的物体才需要重新推理。
 
 ## 检查结果
 - 日志看 `Inferred N grasps, scores: a — b`，置信度合理（目标 0.70–0.99；当前 openarm 缺缓存约 0.42–0.63）。
