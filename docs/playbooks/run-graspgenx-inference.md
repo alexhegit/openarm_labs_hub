@@ -6,6 +6,10 @@
 见实验记录 `docs/experiments/2026-06-17-graspgenx-openarm-inference.md` 的安装 + checkpoint 步骤，
 或直接用已固化镜像 `openarm-rocm:graspgen`（若已 commit）。
 
+> ⚠️ 用 fork **`alexhegit/GraspGenX`**，不是上游。OpenArm 夹爪与 ROCm 支持上游均未合入，由该 fork 实现并提 PR：
+> OpenArm 夹爪 [NVlabs/GraspGenX#3](https://github.com/NVlabs/GraspGenX/pull/3)、ROCm [NVlabs/GraspGenX#1](https://github.com/NVlabs/GraspGenX/pull/1)。
+> AMD 安装：`uv sync --extra rocm`（`rocm` 与 `end2end` 互斥，见 ADR 0002）。
+
 ## 跑推理（headless）
 ```bash
 docker exec graspgen-dev bash -lc '
